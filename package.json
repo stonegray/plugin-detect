@@ -1,0 +1,42 @@
+{
+  "name": "@stonegray/plugin-detect",
+  "version": "0.0.1",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stonegray/plugin-detect.git"
+  },
+  "author": "stonegray",
+  "license": "GPL-3.0",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/stonegray/plugin-detect/issues"
+  },
+  "homepage": "https://github.com/stonegray/plugin-detect#readme",
+  "description": "Get information from installed VST and AU plugin",
+  "keywords": [
+    "Ableton",
+    "VST",
+    "Plugin",
+    "AU",
+    "Audio Unit",
+    "DAW"
+  ],
+  "os": [
+    "darwin"
+  ],
+  "engines": {
+    "node": ">=15.0"
+  },
+  "dependencies": {
+    "macos-release": "^2.4.1",
+    "plist": "^3.0.1",
+    "semver": "^7.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0"
+  }
+}
