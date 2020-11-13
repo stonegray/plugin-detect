@@ -4,3 +4,4 @@ const plugins = await getPlugins();
 
 console.log(plugins);
 
+debugger;
