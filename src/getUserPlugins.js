@@ -60,6 +60,12 @@ export async function getUserPlugins(directories) {
 				out[i].types.push(p.type);
 			}
 
+			out[i]['plugin' + p.type] = {
+				relPath: p.relPath,
+				absPath: p.absPath,
+				icon: p.icon,
+			};
+
 			// Update the vendor information if it's blank:
 			out[i].vendor = !t.vendor || t.vendor == '' ? p.vendor : t.vendor;
 
