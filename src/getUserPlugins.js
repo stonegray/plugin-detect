@@ -43,9 +43,13 @@ export async function getUserPlugins(directories) {
 	let out = [];
 	for (const p of installedPlugins) {
 
+		if (typeof p == 'undefined') continue; 
+		
 		// Check if we've already seen an identical (by ver/id) plugin
-		const i = out.findIndex(t => t.identifier == p.identifier && t.version === p.version
+		const i = out.findIndex(t => t?.identifier == p?.identifier && t?.version === p?.version
 		);
+
+		
 
 		// If we don't already have a matching version and ID, add it.
 		if (i == -1) {
@@ -64,6 +68,7 @@ export async function getUserPlugins(directories) {
 				relPath: p.relPath,
 				absPath: p.absPath,
 				icon: p.icon,
+				plist: p.plist,
 			};
 
 			// Update the vendor information if it's blank:
