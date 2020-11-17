@@ -12,7 +12,14 @@ export async function scanPlugin(plugin) {
 	// Read the plist file:
 	const plistFile = path.join(plugin.dir, plugin.name, './Contents/Info.plist');
 
-	const plistData = plist.parse(await fs.promises.readFile(plistFile, 'utf8'));
+	let plistData;
+	try {
+		plistData = plist.parse(await fs.promises.readFile(plistFile, 'utf8'));
+	} catch (e) {
+		console.error("Skipped plugin, missing Info.plist:"+plugin.name)
+		return;
+	}
+
 
 	// By now we have an Ableton, so let's collect some info about it.
 	const info = {
@@ -32,6 +39,7 @@ export async function scanPlugin(plugin) {
 		ok: true,
 		errors: []
 	};
+	info.plist = plistData;
 
 
 
