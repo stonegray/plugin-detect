@@ -34,59 +34,14 @@ export async function getUserPlugins(directories) {
 	// For each plugin path we have, scan it:
 	let installedPlugins = [];
 
-
 	// Run scanPlugin on each result in the search directories:
 	for (const pluginPath of pluginPaths) {
+		// Get array of plugins from this directory:
 		const arr = await scanPlugin(pluginPath);
+
+		// Add to array:
 		installedPlugins = [...installedPlugins, ...arr];
 	}
-
-	/*
-	// Flatten plugins:
-	let out = [];
-	for (const p of installedPlugins) {
-
-		if (typeof p == 'undefined') continue; 
-		
-		// Check if we've already seen an identical (by ver/id) plugin
-		const i = out.findIndex(t => t?.identifier == p?.identifier && t?.version === p?.version
-		);
-
-		
-
-		// If we don't already have a matching version and ID, add it.
-		if (i == -1) {
-			out.push(p);
-		} else {
-			let t = out[i];
-
-			// Append the type if it doesn't already exist.
-			if (out[i].types.includes(p.type)) {
-				continue;
-			} else {
-				out[i].types.push(p.type);
-			}
-
-			out[i]['plugin' + p.type] = {
-				relPath: p.relPath,
-				absPath: p.absPath,
-				icon: p.icon,
-				plist: p.plist,
-			};
-
-			// Update the vendor information if it's blank:
-			out[i].vendor = !t.vendor || t.vendor == '' ? p.vendor : t.vendor;
-
-
-
-		}
-	}
-
-
-	// Remove type value since we have the array now:
-	out = out.map(({ type, ...rest }) => rest);
-
-	*/
 
 	return installedPlugins;
 

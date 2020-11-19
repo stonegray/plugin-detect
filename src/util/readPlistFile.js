@@ -12,7 +12,7 @@ export default async function readPlistFile(pluginPath) {
 	try {
 		fileContents = await fs.promises.readFile(plistFile, 'utf8');
 	} catch (e) {
-		console.error('Skipped plugin, missing Info.plist:' + pluginPath);
+		console.error('Skipped plugin, missing Info.plist: ' + pluginPath);
 		return e;
 	}
 

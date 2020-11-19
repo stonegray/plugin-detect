@@ -18,16 +18,14 @@ export default async function getPlugins(directories){
 		path.join(os.homedir(), './Library/Audio/Plug-Ins/VST3'),
 	];
 
-	pluginDirs = [
-		'/Library/Audio/Plug-Ins/VST'
-	];
+
 
 	let plugins = [];
 
 	try {
 
 		plugins = plugins.concat([...await getUserPlugins(pluginDirs)]);
-		plugins = plugins.concat([...await getSystemPlugins()]);
+		//plugins = plugins.concat([...await getSystemPlugins()]);
 
 	} catch (e){
 		console.log('Failed:', e);

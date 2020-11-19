@@ -2,14 +2,46 @@
 
 **Get information from installed VST and AU plugins**
 
-![](https://img.shields.io/npm/dt/@stonegray/plugin-detect) ![](https://img.shields.io/github/languages/code-size/stonegray/plugin-detect) ![](https://img.shields.io/github/license/stonegray/plugin-detect)
-
-Public beta!
-
-Get information about all available VST, AU, and VST3 plugins on the system.
-
-See `example.js` for usage. (Spoiler: `await getPlugins();`)
+![](https://img.shields.io/github/languages/code-size/stonegray/plugin-detect) ![](https://img.shields.io/github/license/stonegray/plugin-detect)
 
 
-## Fields
+`plugin-detect` scans the plugin directories on the system, and collects detailed information about each available plugin. It supports VST, VST3, and AU, with full support for Audio Units containing multiple effects and instruments, such as WavesShell (400+ effects!), and the built-in CoreAudio effects. (eg. AUDelay, AURountripAAC)
+
+This library provides an async function as an ES module, and only supports macOS. It is currently in early stages of development and shouldn't be used in anything production-ready, and you should `npm update` frequently until we hit 1.x
+
+## Examples
+
+Basic example:
+
+```javascript
+import scanPlugins from `plugin-detect`;
+
+console.log(await scanPlugins());
+```
+
+Output:
+
+```javascript
+[
+    {
+        name: 'OneKnob Wetter (s)',
+        manufacturer: 'Waves',
+        version: '11.0.0',
+        minimumOsVersion: '10.0',
+        identifier: 'com.WavesAudio.WaveShell1-AU.11.0.0',
+        relPath: 'WaveShell1-AU 11.0.component',
+        absPath: '/Library/Audio/Plug-Ins/Components/WaveShell1-AU 11.0.component',
+        icon: '/Library/Audio/Plug-Ins/Components/WaveShell1-AU 11.0.component/Contents/Resources/WaveShell1-AU 11.0.icns',
+        type: 'AU',
+        arch: [ 'x64' ],
+        componentCount: 448,
+        description: 'Plugin_description',
+        system: false,
+        errors: [],
+        ok: true
+    },
+    ... 772 more
+]
+
+```
 

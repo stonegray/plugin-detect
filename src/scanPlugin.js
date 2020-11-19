@@ -6,7 +6,6 @@ export async function scanPlugin(plugin) {
 	// macOS plugins are directories, so we can immediately exclude
 	// anything that isn't a directory type.
 	if (!plugin.isDirectory()){
-		console.error('Unhandled error: Unable to parse plugin' + plugin.name);
 		return [];
 	}
 
@@ -16,7 +15,7 @@ export async function scanPlugin(plugin) {
 	const plist = await readPlistFile(path.join(plugin.dir, plugin.name));
 
 	if (plist instanceof Error){
-		console.warn('Error parsing ', plugin.name);
+		console.warn('Error parsing ', plugin.name, plist);
 		return [];
 
 	}
@@ -29,6 +28,10 @@ export async function scanPlugin(plugin) {
 
 	// Create an empty errors array for now:
 	info.errors = [];
+
+	// No system plugins are scanned by this since we use seperate logic
+	// to scan the CoreAudio ones.
+	info.system = false;
 
 	info._plist = plist;
 	info.name = plist.CFBundleName
@@ -139,6 +142,9 @@ export async function scanPlugin(plugin) {
 				compInfo.manufacturer = split[2] || compInfo.manufacturer;
 			}
 
+			// Add .ok value based on errors:
+			compInfo.ok = (compInfo.errors.length === 0);
+
 			// Push a copy of compInfo into the plugins to return for
 			// this .component:
 			// This breaks if you push compInfo itself. I honestly don't 
@@ -151,6 +157,7 @@ export async function scanPlugin(plugin) {
 	} else {
 		// If no array exists, just push the single one. This is the
 		// expected flow for VST/VST3
+		info.ok = (info.errors.length === 0);
 		plugins.push(info);
 	}
 
@@ -158,76 +165,8 @@ export async function scanPlugin(plugin) {
 
 	/*
 
-	// CFBundleIdentifier we can probably skip sanity checking the rest. 
-	if (typeof plistData.CFBundleIdentifier == 'undefined') {
-		console.warn('Detected malformed Plugin plugin', plugin.name);
-		return;
-	}
-
-	// Get name:
-
-	// in AU, 
-	info.name = plistData.CFBundleName;
-
-	if (typeof plistData.AudioComponents == 'object') {
-		info.description = plistData.AudioComponents[0].description;
-		info.vendor = plistData.AudioComponents[0].manufacturer;
-	}
-
-	info.identifier = plistData.CFBundleIdentifier;
-
-	info.relPath = plugin.name;
-	info.absPath = path.join(plugin.dir, plugin.name);
-
-	// I'm using a dirty trick to get the first word, basically just creating an
-	// ephemeral array and popping the first off, which is the version string.
 	info.version = plistData.CFBundleVersion.split(' ').shift();
 
-	info.minSystemVersion = plistData.LSMinimumSystemVersion;
-
-	// Get the icon path so we can show the correct icons for different versions/varients
-	// like the green icon for Intro.
-	if (typeof plistData.CFBundleIconFile !== 'undefined') {
-		info.icon = path.join(info.absPath, './Contents/Resources', plistData.CFBundleIconFile);
-	} else {
-		info.icon = false;
-	}
-
-	// Detect plugin type
-	const extension = path.extname(info.relPath);
-	if (extension == '.vst') {
-		info.type = 'VST';
-	} else if (extension == '.vst3') {
-		info.type = 'VST3';
-	} else if (extension == '.component') {
-		info.type = 'AU';
-	}
-
-	
-
-	// Add initial type into array
-	info.types.push(info.type);
-
-	// Check if plugin binary is 32-bit or 64-bit by inspecting the header
-	const executable = plistData.CFBundleExecutable;
-	const executablePath = path.join(plugin.dir, plugin.name, './Contents/MacOS/', executable);
-	const header = await getHeaderBytes(executablePath, 16);
-	if (Buffer.compare(header, Buffer.from('CFFAEDFE', 'hex'))) {
-		info.arch = ['x64'];
-	} else if (Buffer.compare(header, Buffer.from('CEFAEDFE', 'hex'))) {
-		info.arch = ['x32'];
-	} else if (Buffer.compare(header, Buffer.from('CAFEBABE', 'hex'))) {
-		// Universal/Object file
-		info.arch = ['x32', 'x64'];
-	} else {
-		// TODO: Should add aarch64 header parser before Ableton releases an macOS/ARM version
-		info.type = 'Unknown/Malformed';
-		info.ok = false;
-		info.errors.push('Unsupported architecture');
-	}
-
 	*/
-
-
 
 }
