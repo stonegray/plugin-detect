@@ -10,7 +10,7 @@ import newGithubIssueUrl from 'new-github-issue-url';
 
 const version = packageJson.version;
 
-export default async function getPlugins(directories){
+export default async function getPlugins(){
 
 	
 	let pluginDirs = [
@@ -21,8 +21,6 @@ export default async function getPlugins(directories){
 		path.join(os.homedir(), './Library/Audio/Plug-Ins/VST'),
 		path.join(os.homedir(), './Library/Audio/Plug-Ins/VST3'),
 	];
-
-
 
 	let plugins = [];
 
@@ -41,15 +39,15 @@ export default async function getPlugins(directories){
 			body:
 				`An unhandled error occured in the application. I am running version ${version} ` +
 				`using Node ${process.version}. The error is automatically added below. Please ` +
-				`add a brief description of the problem and a title. \n` +
+				'add a brief description of the problem and a title. \n' +
 				'\n\nError:\n' +
 				'```\n' +
 				`${e.message}\n` +
-				`\`\`\`\n` +
+				'```\n' +
 				'Stack:\n' +
 				'```\n' +
 				`${e.stack}` +
-				`\`\`\`\n`
+				'```\n'
 		});
 
 		console.error(url);
