@@ -41,11 +41,9 @@ export async function getUserPlugins(directories) {
 	let installedPlugins = [];
 
 	// Run scanPlugin on each result in the search directories:
-	let index = 0;
 	for (const pluginPath of pluginPaths) {
 		// Get array of plugins from this directory:
 		const arr = await scanPlugin(pluginPath);
-		console.log(index++);
 		// Add to array:
 		installedPlugins = [...installedPlugins, ...arr];
 	}
