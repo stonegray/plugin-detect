@@ -47,3 +47,8 @@ Output:
 
 ```
 
+## Error handling
+
+In the unlikely event that this plugin encounters an unexpected issue while reading plugins, it will output a link which can be used to quickly report the error on the issue tracker, and automatically neccessary information. 
+
+Any errors will be thrown normally after this link is generated.
