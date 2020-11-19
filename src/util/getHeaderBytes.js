@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export async function getHeaderBytes(file, number) {
+export default async function getHeaderBytes(file, number) {
 
 	const fd = await fs.promises.open(file, 'r');
 
@@ -12,3 +12,4 @@ export async function getHeaderBytes(file, number) {
 
 	return buf;
 }
+            

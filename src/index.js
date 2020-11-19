@@ -3,8 +3,6 @@
 import path from 'path';
 import os from 'os';
 
-import macosRelease from 'macos-release';
-import semver from 'semver';
 import { getSystemPlugins } from './getSystemPlugins.js';
 import { getUserPlugins } from './getUserPlugins.js';
 
@@ -20,6 +18,10 @@ export default async function getPlugins(directories){
 		path.join(os.homedir(), './Library/Audio/Plug-Ins/VST3'),
 	];
 
+	pluginDirs = [
+		'/Library/Audio/Plug-Ins/VST'
+	];
+
 	let plugins = [];
 
 	try {
@@ -28,7 +30,7 @@ export default async function getPlugins(directories){
 		plugins = plugins.concat([...await getSystemPlugins()]);
 
 	} catch (e){
-		console.log('Failed:');
+		console.log('Failed:', e);
 		throw e;
 	}
 

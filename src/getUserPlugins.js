@@ -32,13 +32,16 @@ export async function getUserPlugins(directories) {
 
 
 	// For each plugin path we have, scan it:
-	const installedPlugins = [];
+	let installedPlugins = [];
+
 
 	// Run scanPlugin on each result in the search directories:
 	for (const pluginPath of pluginPaths) {
-		installedPlugins.push(await scanPlugin(pluginPath));
+		const arr = await scanPlugin(pluginPath);
+		installedPlugins = [...installedPlugins, ...arr];
 	}
 
+	/*
 	// Flatten plugins:
 	let out = [];
 	for (const p of installedPlugins) {
@@ -79,9 +82,12 @@ export async function getUserPlugins(directories) {
 		}
 	}
 
+
 	// Remove type value since we have the array now:
 	out = out.map(({ type, ...rest }) => rest);
 
-	return out;
+	*/
+
+	return installedPlugins;
 
 }
