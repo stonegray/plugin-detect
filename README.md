@@ -7,7 +7,7 @@
 
 `plugin-detect` scans the plugin directories on the system, and collects  information about each available plugin. It supports VST, VST3, and AU, with full support for Audio Units containing multiple effects and instruments, such as WavesShell (400+ effects!), and the built-in CoreAudio effects. (eg. AUDelay, AURountripAAC)
 
-This library provides an async function as an ES module, and only supports macOS. It is currently in early stages of development and shouldn't be used in anything production-ready, and you should `npm update` frequently until we hit 1.x
+This library provides an async function as an ES module, and only supports macOS. 
 
 *Working with Ableton? Also try [@stonegray/ableton-detect](https://www.npmjs.com/package/@stonegray/ableton-detect)*
 
