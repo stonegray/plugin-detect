@@ -9,6 +9,11 @@ export async function scanPlugin(plugin) {
 		return [];
 	}
 
+	// If we have a directory without an extension, it's not a plugin:
+	if (path.extname(plugin.name) === ''){
+		return [];
+	}
+
 	// Read the plist file:
 	// const plistFile = path.join(plugin.dir, plugin.name, './Contents/Info.plist');
 

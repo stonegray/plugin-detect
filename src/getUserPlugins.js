@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { scanPlugin } from './scanPlugin.js';
 
 export async function getUserPlugins(directories) {
@@ -19,6 +20,15 @@ export async function getUserPlugins(directories) {
 			continue;
 		}
 
+		for (const subdir of thisPlugins){
+			if (subdir.isDirectory()){
+				if (path.extname(subdir.name) == ''){
+					debugger;
+					continue;
+				}
+			}
+		}
+
 		// Shoehorn some directory information into each app field before
 		// we lose context... grrr why don't DirEnt objects store path info?
 		thisPlugins = thisPlugins.map(a => {
@@ -29,6 +39,9 @@ export async function getUserPlugins(directories) {
 		// Join arrays
 		pluginPaths = pluginPaths.concat(...thisPlugins);
 	}
+
+	// Recurse by one:
+
 
 
 	// For each plugin path we have, scan it:
