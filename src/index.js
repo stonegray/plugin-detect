@@ -25,7 +25,7 @@ export default async function getPlugins(directories){
 	try {
 
 		plugins = plugins.concat([...await getUserPlugins(pluginDirs)]);
-		//plugins = plugins.concat([...await getSystemPlugins()]);
+		plugins = plugins.concat([...await getSystemPlugins()]);
 
 	} catch (e){
 		console.log('Failed:', e);
