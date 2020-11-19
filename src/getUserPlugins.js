@@ -20,14 +20,7 @@ export async function getUserPlugins(directories) {
 			continue;
 		}
 
-		for (const subdir of thisPlugins){
-			if (subdir.isDirectory()){
-				if (path.extname(subdir.name) == ''){
-					debugger;
-					continue;
-				}
-			}
-		}
+		
 
 		// Shoehorn some directory information into each app field before
 		// we lose context... grrr why don't DirEnt objects store path info?
@@ -48,10 +41,11 @@ export async function getUserPlugins(directories) {
 	let installedPlugins = [];
 
 	// Run scanPlugin on each result in the search directories:
+	let index = 0;
 	for (const pluginPath of pluginPaths) {
 		// Get array of plugins from this directory:
 		const arr = await scanPlugin(pluginPath);
-
+		console.log(index++);
 		// Add to array:
 		installedPlugins = [...installedPlugins, ...arr];
 	}
