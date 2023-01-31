@@ -34,7 +34,7 @@
   "dependencies": {
     "macos-release": "^2.5.0",
     "new-github-issue-url": "^0.2.1",
-    "plist": "^3.0.5",
+    "plist": "^3.0.6",
     "semver": "^7.3.7"
   },
   "devDependencies": {
