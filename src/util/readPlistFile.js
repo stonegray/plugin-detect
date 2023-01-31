@@ -16,5 +16,13 @@ export default async function readPlistFile(pluginPath) {
 		return e;
 	}
 
-	return plist.parse(fileContents);
+	let retValue;
+	try {
+		retValue = plist.parse(fileContents);
+	} catch (e){
+		return e;
+	}
+
+	return retValue;
+
 }
