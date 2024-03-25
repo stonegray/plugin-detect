@@ -12,17 +12,21 @@ export default async function readPlistFile(pluginPath) {
 	try {
 		fileContents = await fs.promises.readFile(plistFile, 'utf8');
 	} catch (e) {
-		console.error('Skipped plugin, missing Info.plist: ' + pluginPath);
+		//console.error('Skipped plugin, missing Info.plist: ' + pluginPath);
 		return e;
 	}
 
 	let retValue;
 	try {
+
+		//const plist = await import('plist');
+		//console.log(plist.default);
+		//retValue = plist.default.parse(fileContents);
 		retValue = plist.parse(fileContents);
 	} catch (e){
+		//console.error('Skipped plugin, parse error: ' + e + pluginPath);
 		return e;
 	}
-
 	return retValue;
 
 }

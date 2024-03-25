@@ -113,9 +113,13 @@ export async function scanPlugin(plugin) {
 	case 'cffaedfe12000001':
 		info.arch = ['arm64'];	
 		break;
+
+	case 'cafebabe00000002':
+		info.arch = ['arm64', 'x64'];
+		break;
 		
 	default:
-		info.errors.push('Unknown architecture: '+headerBytesHex.toUpperCase);
+		info.errors.push('Unknown architecture: '+headerBytesHex.toUpperCase());
 		break;
 	}
 
